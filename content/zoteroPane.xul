@@ -51,6 +51,14 @@
       zotero-persist="width ordinal hidden sortActive sortDirection"
     />
     <splitter class="tree-splitter"/>
+    <treecol
+      id="zotero-items-column-ratio"
+      label="Ratio"
+      flex="1"
+      insertafter="zotero-items-column-citingPublications"
+      zotero-persist="width ordinal hidden sortActive sortDirection"
+    />
+    <splitter class="tree-splitter"/>
   </treecols>
 
   <!-- Include the main extension logic -->

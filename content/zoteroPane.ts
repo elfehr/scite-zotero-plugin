@@ -63,6 +63,7 @@ $patch$(Zotero.getActiveZoteroPane(), 'serializePersist', original => function()
     delete persisted['zotero-items-column-contrasting']
     delete persisted['zotero-items-column-total']
     delete persisted['zotero-items-column-citingPublications']
+    delete persisted['zotero-items-column-ratio']
     Zotero.Prefs.set('pane.persist', JSON.stringify(persisted))
   }
 })

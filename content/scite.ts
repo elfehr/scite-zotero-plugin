@@ -77,7 +77,7 @@ async function getLongDoi(shortDoi) {
 
 const itemTreeViewWaiting: Record<string, boolean> = {}
 
-const sciteItemCols = new Set(['zotero-items-column-supporting', 'zotero-items-column-contrasting', 'zotero-items-column-mentioning', 'zotero-items-column-total', 'zotero-items-column-citingPublications'])
+const sciteItemCols = new Set(['zotero-items-column-supporting', 'zotero-items-column-contrasting', 'zotero-items-column-mentioning', 'zotero-items-column-total', 'zotero-items-column-citingPublications', 'zotero-items-column-ratio'])
 
 function getCellX(tree, row, col, field) {
   if (usingXULTree && !sciteItemCols.has(col.id)) return ''
@@ -119,7 +119,15 @@ function getCellX(tree, row, col, field) {
     debug(`No tallies found for ${doi}`)
   }
 
-  const value = tallies ? tallies[key].toLocaleString() : '-'
+  let value
+  if (key === 'ratio'){
+    const supporting = tallies ? tallies.supporting : 0
+    const contrasting = tallies ? tallies.contrasting : 0
+    value = supporting - contrasting
+    value = value.toLocaleString()
+  } else {
+    value = tallies ? tallies[key].toLocaleString() : '-'
+  }
   switch (field) {
     case 'text':
       return value
@@ -157,6 +165,12 @@ const sciteColumns = [
   {
     dataKey: 'zotero-items-column-citingPublications',
     label: 'Total Distinct Citing Publications',
+    flex: '1',
+    zoteroPersist: new Set(['width', 'hidden', 'sortDirection']),
+  },
+  {
+    dataKey: 'zotero-items-column-ratio',
+    label: 'Ratio',
     flex: '1',
     zoteroPersist: new Set(['width', 'hidden', 'sortDirection']),
   },
