@@ -121,10 +121,10 @@ function getCellX(tree, row, col, field) {
 
   let value
   if (key === 'ratio'){
-    const supporting = tallies ? tallies.supporting : 0
-    const contrasting = tallies ? tallies.contrasting : 0
-    value = supporting - contrasting
-    value = value.toLocaleString()
+    value = tallies ? tallies.supporting - tallies.contrasting : '-'
+    if (!isNaN(value)) {
+      value = value.toLocaleString()
+    }
   } else {
     value = tallies ? tallies[key].toLocaleString() : '-'
   }
